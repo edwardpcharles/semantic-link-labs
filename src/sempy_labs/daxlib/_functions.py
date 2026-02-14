@@ -170,7 +170,7 @@ def add_remove_update_package_to_semantic_model(
     package_name: str,
     version: str = None,
     workspace: Optional[str | UUID] = None,
-    method: Literal["add", "remove", "update"] = "add",
+    method: Literal["add", "remove", "update", "addOrUpdate"] = "add",
 ):
 
     (workspace_name, workspace_id) = resolve_workspace_name_and_id(workspace)
@@ -211,14 +211,6 @@ def add_remove_update_package_to_semantic_model(
                 f"{icons.info} The '{package_name}' package is already detected in the "
                 f"semantic model. If you want to update the package to the latest "
                 f"version, please use the 'update_package_in_semantic_model' function."
-            )
-            return
-
-        if method != "add" and not exists:
-            print(
-                f"{icons.info} The '{package_name}' package is not detected in the "
-                f"semantic model. Please use the 'add_package_to_semantic_model' "
-                f"function to add it first."
             )
             return
 
@@ -311,7 +303,7 @@ def remove_package_from_semantic_model(
 
 
 @log
-def update_package_in_semantic_model(
+def add_or_update_package_in_semantic_model(
     dataset: str | UUID,
     package_name: str,
     version: str = None,
